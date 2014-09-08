@@ -1,43 +1,42 @@
-module events {
+import disposable = require("./disposable");
 
-  export class Event extends twitter.Disposable {
-    eventType: string;
-    target: Object;
-    currentTarget: Object;
+export class Event extends disposable.Disposable {
+  eventType: string;
+  target: Object;
+  currentTarget: Object;
 
-    /* Whether to cancel the event in internal capture/bubble processing for IE. */
-    propagationStopped: boolean = false;
+  /* Whether to cancel the event in internal capture/bubble processing for IE. */
+  propagationStopped: boolean = false;
 
-    /* Return value for internal capture/bubble processing for IE. */
-    returnValue: boolean = true;
+  /* Return value for internal capture/bubble processing for IE. */
+  returnValue: boolean = true;
 
-    constructor(eventType: string, target?: Object) {
-      super();
-      this.eventType = eventType;
-      this.target = target;
-      this.currentTarget = this.target;
-    }
+  constructor(eventType: string, target?: Object) {
+    super();
+    this.eventType = eventType;
+    this.target = target;
+    this.currentTarget = this.target;
+  }
 
-    disposeInternal() {
-      delete this.eventType;
-      delete this.target;
-      delete this.currentTarget;
-    }
+  disposeInternal() {
+    delete this.eventType;
+    delete this.target;
+    delete this.currentTarget;
+  }
 
-    stopPropagation(): void {
-      this.propagationStopped = true;
-    }
+  stopPropagation(): void {
+    this.propagationStopped = true;
+  }
 
-    preventDefault(): void {
-      this.returnValue = false;
-    }
+  preventDefault(): void {
+    this.returnValue = false;
+  }
 
-    static stopPropagation(e) {
-      e.stopPropagation();
-    }
+  static stopPropagation(e) {
+    e.stopPropagation();
+  }
 
-    static preventDefault(e) {
-      e.preventDefault();
-    }
+  static preventDefault(e) {
+    e.preventDefault();
   }
 }
