@@ -13,7 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import dom = require("./dom");
+import dom = require('./dom');
+import userAgent = require('./useragent');
 
 export class Coordinate {
   x: number;
@@ -113,7 +114,7 @@ function getBoundingClientRect(el: Element): ClientRect {
 
   // Patch the result in IE only, so that this function can be inlined if
   // compiled for non-IE.
-  if (twitter.userAgent.IE && el.ownerDocument.body) {
+  if (userAgent.IE && el.ownerDocument.body) {
 
     // In IE, most of the time, 2 extra pixels are added to the top and left
     // due to the implicit 2-pixel inset border.  In IE6/7 quirks mode and

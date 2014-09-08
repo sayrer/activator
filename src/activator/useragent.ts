@@ -13,7 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module twitter.userAgent {
+import base = require('./base');
+import str = require('./str');
 
 /**
  * Whether we know at compile-time that the browser is IE.
@@ -62,7 +63,7 @@ var BROWSER_KNOWN = (
  * string.
  */
 export function getUserAgent(): string {
-  var navigator = twitter.userAgent.getNavigator();
+  var navigator = getNavigator();
   if (navigator) {
     var userAgent = navigator.userAgent;
     if (userAgent) {
@@ -77,23 +78,23 @@ export function getUserAgent(): string {
  * This is a separate function so it can be stubbed out in testing.
  */
 export function getNavigator(): Navigator {
-  return twitter.global.navigator;
+  return base.global.navigator;
 };
 
 /**
  * @param str
  * @return Whether the user agent contains the given string.
  */
-function matchUserAgent(str: string): boolean {
-  return twitter.str.contains(getUserAgent(), str);
+function matchUserAgent(s: string): boolean {
+  return str.contains(getUserAgent(), s);
 };
 
 /**
  * @param str
  * @return Whether the user agent contains the given string, ignoring case.
  */
-function matchUserAgentIgnoreCase(str: string): boolean {
-  return twitter.str.caseInsensitiveContains(getUserAgent(), str);
+function matchUserAgentIgnoreCase(s: string): boolean {
+  return str.caseInsensitiveContains(getUserAgent(), s);
 }
 
 /**
@@ -259,15 +260,15 @@ var detectedIPhone = false;
 var detectedIPad = false;
 
 function initPlatform () {
-  detectedMac = twitter.str.contains(PLATFORM, 'Mac');
-  detectedWindows = twitter.str.contains(PLATFORM, 'Win');
-  detectedLinux = twitter.str.contains(PLATFORM, 'Linux');
+  detectedMac = str.contains(PLATFORM, 'Mac');
+  detectedWindows = str.contains(PLATFORM, 'Win');
+  detectedLinux = str.contains(PLATFORM, 'Linux');
   var navigator = getNavigator();
-  detectedX11 = !!navigator && twitter.str.contains(navigator['appVersion'] || '', 'X11');
+  detectedX11 = !!navigator && str.contains(navigator['appVersion'] || '', 'X11');
   var ua = getUserAgent();
-  detectedAndroid = !!ua && twitter.str.contains(ua, 'Android');
-  detectedIPhone = !!ua && twitter.str.contains(ua, 'iPhone');
-  detectedIPad = !!ua && twitter.str.contains(ua, 'iPad');
+  detectedAndroid = !!ua && str.contains(ua, 'Android');
+  detectedIPhone = !!ua && str.contains(ua, 'iPhone');
+  detectedIPad = !!ua && str.contains(ua, 'iPad');
 }
 
 if (!PLATFORM_KNOWN) {
@@ -319,8 +320,8 @@ export function determineVersion(): string {
   // version is a string rather than a number because it may contain 'b', 'a',
   // and so on.
   var version = '', re;
-  if (OPERA && twitter.global['opera']) {
-    var operaVersion = twitter.global['opera'].version;
+  if (OPERA && base.global['opera']) {
+    var operaVersion = base.global['opera'].version;
     version = typeof operaVersion == 'function' ? operaVersion() : operaVersion;
   } else {
     if (GECKO) {
@@ -357,7 +358,7 @@ export function determineVersion(): string {
  */
 function getDocumentMode() {
   // twitter.userAgent may be used in context where there is no DOM.
-  var doc = twitter.global['document'];
+  var doc = base.global['document'];
   return doc ? doc['documentMode'] : undefined;
 };
 
@@ -375,7 +376,7 @@ export var VERSION: string = determineVersion();
 var isVersionOrHigherCache = {};
 
 export function isVersionOrHigher(version): boolean {
-  return isVersionOrHigherCache[version] || (isVersionOrHigherCache[version] = twitter.str.compareVersions(VERSION, version) >= 0);
+  return isVersionOrHigherCache[version] || (isVersionOrHigherCache[version] = str.compareVersions(VERSION, version) >= 0);
 }
 
 /**
@@ -392,7 +393,7 @@ export function isDocumentMode(documentMode: number): boolean {
 }
 
 export var DOCUMENT_MODE = (function() {
-  var doc = twitter.global['document'];
+  var doc = base.global['document'];
   if (!doc || !IE) {
     return undefined;
   }
@@ -400,5 +401,3 @@ export var DOCUMENT_MODE = (function() {
   return mode || (doc['compatMode'] == 'CSS1Compat' ?
       parseInt(VERSION, 10) : 5);
 })();
-
-}

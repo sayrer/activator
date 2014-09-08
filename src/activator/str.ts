@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module twitter.str { // error TS1060: Module name cannot be 'string'.
-
 /**
  * Determines whether a string contains a substring.
  * @param {string} str The string to search.
@@ -121,5 +119,3 @@ function compareElements(left, right): number {
   }
   return 0;
 };
-
-}
