@@ -1,6 +1,6 @@
 [x] ../../jsaction/actionflow.js:8:goog.require('goog.array');
 [x] ../../jsaction/actionflow.js:9:goog.require('goog.dom');
-../../jsaction/actionflow.js:10:goog.require('goog.events.Event');
+[x] ../../jsaction/actionflow.js:10:goog.require('goog.events.Event');
 ../../jsaction/actionflow.js:11:goog.require('goog.events.EventTarget');
 [x] ../../jsaction/actionflow.js:12:goog.require('goog.object');
 ../../jsaction/actionflow.js:13:goog.require('goog.structs.Set');
