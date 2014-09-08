@@ -13,7 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module twitter.object {
 /**
  * Calls a function for each element in an object/map/hash.
  */
@@ -91,5 +90,3 @@ export function extend(target: any, ...args: any[]): void {
     }
   }
 };
-
-}
