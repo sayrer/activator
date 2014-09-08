@@ -20,6 +20,16 @@ export class Event extends disposable.Disposable {
   target: Object;
   currentTarget: Object;
 
+
+  /**
+   * Whether the default action has been prevented.
+   * This is a property to match the W3C specification at
+   * {@link http://www.w3.org/TR/DOM-Level-3-Events/
+   * #events-event-type-defaultPrevented}.
+   * Must be treated as read-only outside the class.
+   */
+  defaultPrevented: boolean = false;
+
   /* Whether to cancel the event in internal capture/bubble processing for IE. */
   propagationStopped: boolean = false;
 
@@ -44,6 +54,7 @@ export class Event extends disposable.Disposable {
   }
 
   preventDefault(): void {
+    this.defaultPrevented = true;
     this.returnValue = false;
   }
 
