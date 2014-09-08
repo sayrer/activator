@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module twitter.style {
+import dom = require("./dom");
 
 export class Coordinate {
   x: number;
@@ -42,7 +42,7 @@ interface ClientRect {
  * @return Style value.
  */
 function getComputedStyle(element: HTMLElement, property: string): string {
-  var doc = twitter.dom.getOwnerDocument(element);
+  var doc = dom.getOwnerDocument(element);
   if (doc.defaultView && doc.defaultView.getComputedStyle) {
     var styles = doc.defaultView.getComputedStyle(element, null);
     if (styles) {
@@ -150,6 +150,4 @@ function getClientPositionForElement(el: Element): Coordinate {
 
 export function getClientPosition(el: Element): Coordinate {
   return getClientPositionForElement(el);
-}
-
 }
