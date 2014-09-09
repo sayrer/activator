@@ -520,7 +520,7 @@ export class ListenerMap {
     var hasCapture = optCapture != null;
 
     return object.some(this.listeners,
-      function(listenerArray, type) {
+      function(listenerArray: Array<Listener>, type) {
         for (var i = 0; i < listenerArray.length; ++i) {
           if ((!hasType || listenerArray[i].type == typeStr) &&
               (!hasCapture || listenerArray[i].capture == optCapture)) {
