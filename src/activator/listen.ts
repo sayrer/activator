@@ -254,7 +254,7 @@ export interface ListenableKey {
  * Counter used to create a unique key
  */
 var listenableKeyCounter = 0;
-export function reservekey(): number {
+export function reserveKey(): number {
   return ++listenableKeyCounter;
 }
 
@@ -270,7 +270,16 @@ export class Listener implements ListenableKey {
   handler: Object;
   key: number;
   removed: boolean;
+  callOnce: boolean;
 
+  /*
+   * @param listener Callback function.
+   * @param proxy Wrapper for the listener that patches the event.
+   * @param src Source object for the event.
+   * @param type Event type.
+   * @param capture Whether in capture or bubble phase.
+   * @param handler Object in whose context to execute the callback.
+  */
   constructor(listener: Function,
               proxy: Function,
               src: Listenable,
@@ -294,5 +303,6 @@ export class Listener implements ListenableKey {
     this.proxy = null;
     this.src = null;
     this.handler = null;
-  };
+  }
+
 }
