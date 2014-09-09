@@ -18,4 +18,5 @@ import object = require('./object');
 import event = require('./event')
 
 export class Event extends disposable.Disposable {
+
 }

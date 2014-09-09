@@ -16,15 +16,41 @@
 /**
  * Calls a function for each element in an object/map/hash.
  */
-export function forEach<T,V>(
-  obj: { [index: string]: V; },
-  f: (v: V, k: string, obj: {[index: string]: V; }) => any,
-  opt_obj?: T) {
+export function forEach<T,V>
+  (obj: { [index: string]: V; },
+   f: (v: V, k: string, obj: {[index: string]: V; }) => any,
+   opt_obj?: T): void {
   for (var key in obj) {
     // TS deficiency: annotate 'this' as type T somehow
     f.call(opt_obj, obj[key], key, obj);
   }
 }
+
+/**
+ * Calls a function for each element in an object/map/hash. If any
+ * call returns true, returns true (without checking the rest). If
+ * all calls return false, returns false.
+ *
+ * @param obj The object to check.
+ * @param f The function to
+ *     call for every element. This function
+ *     takes 3 arguments (the element, the index and the object) and should
+ *     return a boolean.
+ * @param opt_obj This is used as the 'this' object within f.
+ * @return true if any element passes the test.
+ */
+export function some<T,V>
+  (obj: { [index: string]: V; },
+   f: (v: V, k: string, obj: {[index: string]: V; }) => boolean,
+   opt_obj?: T): boolean {
+  for (var key in obj) {
+    if (f.call(opt_obj, obj[key], key, obj)) {
+      // TS deficiency: annotate 'this' as type T somehow
+      return true;
+    }
+  }
+  return false;
+};
 
 /**
  * Whether the object/map/hash is empty.

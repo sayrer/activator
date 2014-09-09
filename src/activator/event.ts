@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License
 
-import disposable = require("./disposable");
+import disposable = require('./disposable');
 
 export class Event extends disposable.Disposable {
   eventType: string;
@@ -65,25 +65,4 @@ export class Event extends disposable.Disposable {
   static preventDefault(e) {
     e.preventDefault();
   }
-}
-
-/**
- * Counter to create unique event ids.
- */
-var uniqueIdCounter: number = 0;
-
-/**
- * Creates a unique event id.
- *
- * @param identifier The identifier.
- * @return A unique identifier.
- */
-export function getUniqueId(identifier: string): string {
-  return identifier + '_' + uniqueIdCounter++;
-};
-
-export class EventId<T> {
-  id: string;
-  constructor(eventId: string) { this.id = eventId; }
-  toString() { return this.id; }
 }
