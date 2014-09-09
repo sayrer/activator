@@ -13,13 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License
 
-import disposable = require('./disposable');
+import disposable = require('../disposable');
 
-export class Event extends disposable.Disposable {
+class Event extends disposable.Disposable {
   eventType: string;
   target: Object;
   currentTarget: Object;
-
 
   /**
    * Whether the default action has been prevented.
@@ -66,3 +65,5 @@ export class Event extends disposable.Disposable {
     e.preventDefault();
   }
 }
+
+export = Event;

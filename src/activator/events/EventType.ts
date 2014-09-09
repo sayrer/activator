@@ -17,7 +17,7 @@
  * Constants for event names.
  */
 
-export enum EventType {
+enum EventType {
 
   // Mouse events
   click,
@@ -119,3 +119,5 @@ export enum EventType {
   // LocalStorage event.
   storage
 }
+
+export = EventType;
