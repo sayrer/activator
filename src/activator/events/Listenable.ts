@@ -142,7 +142,7 @@ interface Listenable {
    *
    * @return The parent Listenable or null if there is no parent.
    */
-  getParentListenable(): Listenable;
+  getParent(): Listenable;
 
   /**
    * Fires all registered listeners in this listenable for the given

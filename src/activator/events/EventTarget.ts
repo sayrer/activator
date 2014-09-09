@@ -14,8 +14,9 @@
 // limitations under the License
 
 import disposable = require('../disposable');
-import event = require('./Event');
+import Event = require('./Event');
 import Listenable = require('./Listenable');
+import ListenerMap = require('./ListenerMap');
 import object = require('../object');
 
 /**
@@ -33,18 +34,64 @@ import object = require('../object');
  *
  * Example usage:
  * <pre>
- *   var source = new EventTarget();
+ *   var source = new goog.events.EventTarget();
  *   function handleEvent(e) {
  *     alert('Type: ' + e.type + '; Target: ' + e.target);
  *   }
  *   source.listen('foo', handleEvent);
+ *   // Or: events.listen(source, 'foo', handleEvent);
  *   ...
  *   source.dispatchEvent('foo');  // will call handleEvent
  *   ...
  *   source.unlisten('foo', handleEvent);
+ *   // Or: events.unlisten(source, 'foo', handleEvent);
  * </pre>
  *
  */
 export class EventTarget extends disposable.Disposable implements Listenable {
+  /**
+   * Maps of event type to an array of listeners.
+   */
+  private eventTargetListener: ListenerMap;
 
+  /**
+   * The object to use for event.target. Useful when mixing in an
+   * EventTarget to another object.
+   */
+  private actualEventTarget: Object;
+
+  /**
+   * Parent event target, used during event bubbling.
+   */
+  private parent: Listenable;
+
+  constructor() {
+    this.eventTargetListener = new ListenerMap(this);
+    this.actualEventTarget = this;
+    this.parent = null;
+  }
+
+  /**
+   * Returns the parent of this event target to use for bubbling.
+   *
+   * @return The parent Listenable or null if there is no parent.
+   */
+  getParent(): Listenable {
+    return this.parent;
+  }
+
+  /**
+   * Sets the parent of this event target to use for capture/bubble
+   * mechanism.
+   * @param parent Parent listenable (null if none).
+   */
+   setParent(parent: Listenable): void {
+     this.parent = parent;
+   }
 }
+
+/**
+ * An artificial cap on the number of ancestors you can have. This is mainly
+ * for loop detection.
+ */
+var MAX_ANCESTORS: number = 1000;
