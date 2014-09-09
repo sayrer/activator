@@ -49,6 +49,8 @@ interface ListenableKey {
    * by calling the Listener.reserveKey() function.
    */
   key: number;
+
+  markAsRemoved(): void;
 }
 
 export = ListenableKey;

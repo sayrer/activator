@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import ListenableKey = require('./ListenableKey');
+import Event = require('./Event');
 
 /**
  * A listenable interface. A listenable is an object with the ability
@@ -159,10 +160,10 @@ interface Listenable {
    *     false or called goog.events.Event#preventDefault, this returns
    *     false.
    */
-  fireListeners<EVENTOBJ>
+  fireListeners
     (type: any,
      capture: boolean,
-     eventObject: EVENTOBJ
+     eventObject: Event
     ): boolean;
 
   /**
@@ -208,7 +209,7 @@ interface Listenable {
    * @return Whether there is any active listeners matching the requested
    *     type and/or capture phase.
    */
-  hasListener<EVENTOBJ>(type: any, useCapture: boolean): boolean;
+  hasListener(type: any, useCapture: boolean): boolean;
 }
 
 export = Listenable;

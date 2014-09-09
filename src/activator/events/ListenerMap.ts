@@ -132,18 +132,18 @@ class ListenerMap {
 
   /**
    * Removes the given listener object.
-   * @param listener The listener to remove.
+   * @param key The listener to remove.
    * @return Whether the listener is removed.
    */
-  removeByKey(listener: Listener): boolean {
-    var type = listener.type;
+  removeByKey(key: ListenableKey): boolean {
+    var type = key.type;
     if (!(type in this.listeners)) {
       return false;
     }
 
-    var removed = array.remove(this.listeners[type], listener);
+    var removed = array.remove(this.listeners[type], key);
     if (removed) {
-      listener.markAsRemoved();
+      key.markAsRemoved();
       if (this.listeners[type].length == 0) {
         delete this.listeners[type];
         this.typeCount--;
