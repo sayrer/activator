@@ -49,7 +49,7 @@ import object = require('../object');
  * </pre>
  *
  */
-export class EventTarget extends disposable.Disposable implements Listenable {
+class EventTarget extends disposable.Disposable implements Listenable {
   /**
    * Maps of event type to an array of listeners.
    */
@@ -167,7 +167,7 @@ export class EventTarget extends disposable.Disposable implements Listenable {
      eventObject: Event
     ): boolean {
     var listeners: Array<Listener> = this.eventTargetListeners.listeners[String(type)];
-    if (!listenerArray) {
+    if (!listeners) {
       return true;
     }
     var listenerArray: Array<Listener> = listeners.concat();
@@ -279,3 +279,5 @@ function coerceEvent(e: any, target: Object, type: any): Event {
  * for loop detection.
  */
 var MAX_ANCESTORS: number = 1000;
+
+export = EventTarget;

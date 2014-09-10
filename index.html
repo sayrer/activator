@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Event Activation Demo</title>
+    <script data-main="output/Activator.js" src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.js"></script>
+    <script>
+      var __act_global = this;
+    </script>
+  </head>
+  <body>
+    <p><button type='button' jsaction='event1'>Fire Event 1.</button></p>
+    <p><button type='button' jsaction='event2'>Fire Event 2.</button></p>
+    <p><button type='button' jsaction='clear'>Reset.</button></p>
+
+    <p id="messageArea"></p>
+
+    <script>
+      requirejs(['Activator'], function(Activator) {
+      	var activator = new Activator("messageArea");
+      	document.documentElement.onclick = activator.buttonClicked.bind(activator);
+      });
+    </script>
+
+  </body>
+</html>
