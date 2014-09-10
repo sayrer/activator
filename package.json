@@ -1,0 +1,9 @@
+{
+  "name": "activatorjs",
+  "devDependencies": {
+    "typescript": "^1.0.1"
+  },
+  "scripts": {
+    "compile": "tsc src/activator/* --module commonjs --outDir build/"
+  }
+}
