@@ -1,0 +1,1 @@
+Event handling from the [Closure Library](https://github.com/google/closure-library/) partially ported to TypeScript.

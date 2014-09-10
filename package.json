@@ -4,6 +4,6 @@
     "typescript": "^1.0.1"
   },
   "scripts": {
-    "compile": "tsc src/activator/* --module commonjs --outDir build/"
+    "compile": "tsc src/activator/closure/*.ts src/activator/closure/events/*.ts src/activator/Activator.ts --module amd --outDir build/"
   }
 }

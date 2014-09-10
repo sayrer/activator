@@ -1,5 +1,4 @@
 // Copyright 2013 The Closure Library Authors. All Rights Reserved.
-// Copyright 2014 Twitter, Inc. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,21 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-declare var __act_global: any;
-
-/* Name for unique ID property. */
-var UID_PROPERTY: string = 'activator_uid_' + Math.floor(Math.random() * 2147483648).toString(36);
-var UidCounter: number = 0;
-
-export function getUid(obj: Object) {
-  return obj[UID_PROPERTY] || (obj[UID_PROPERTY] = ++UidCounter);
-}
-
-export function isArrayLike(val) {
-  return val && ((typeof val) == 'object' && typeof val.length == 'number');
-}
+/**
+ * Creates a function that always returns the same value.
+ * @param The value to return.
+ * @return The new function.
+ */
+export function constant<T>(retValue: T): () => T {
+  return function(): T {
+    return retValue;
+  };
+};
 
 /**
- * Reference to the global context.  In most cases this will be 'window'.
+ * Always returns false.
  */
-export var global = __act_global;
+export var FALSE: () => boolean = constant(false);
+
+/**
+ * Always returns true.
+ */
+export var TRUE: () => boolean = constant(true);
