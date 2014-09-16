@@ -4,6 +4,7 @@
  */
 var uniqueIdCounter: number = 0;
 
+// TODO: fix the types here.
 class EventId<T> {
   id: string;
   constructor(eventId: string) { this.id = eventId; }
